@@ -1,0 +1,6 @@
+name: Notorious
+version: 14b10w
+main: notorious.notorious.Notorious
+api-version: 1.19
+authors: [ Shutoko ]
+description: A simple Minecraft plugin with a lot of features.
