@@ -72,7 +72,7 @@ public class ConfigDUtils implements Listener {
         }
     }
 
-    public void configOnEnable() {
+    public void onEnableConfig() {
         Notorious.Config.saveDefaultConfig();
         Notorious.Config.reloadConfig();
         Notorious.Config.saveConfig();

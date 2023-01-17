@@ -18,7 +18,7 @@ public final class Notorious extends JavaPlugin {
 
         // config setup
         Config = new ConfigDUtils(this, "", "config.yml");
-        Config.configOnEnable();
+        Config.onEnableConfig();
 
         // plugin starting message
         if (!Objects.requireNonNull(Config.getConfig().getString("start-up-message")).isEmpty()) {
