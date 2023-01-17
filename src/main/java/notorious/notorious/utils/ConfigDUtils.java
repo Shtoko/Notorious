@@ -20,24 +20,12 @@ public class ConfigDUtils implements Listener {
     private final String path;
     private FileConfiguration config;
 
-    public void saveDefaultConfig() {
-        if (!filepath.exists()) {
-            Bukkit.getConsoleSender().sendMessage("There was a problem creating the config..");
-        }
-        if (!file.exists())
-            this.plugin.saveResource(path + name, false);
-    }
-
-    public void reloadConfig() {
-        if (filepath == null)
-            filepath = new File(plugin.getDataFolder(), path);
-        if (file == null)
-            file = new File(filepath, name);
-        InputStream stream = plugin.getResource(name);
-        if (stream != null) {
-            YamlConfiguration YamlFile = YamlConfiguration.loadConfiguration(new InputStreamReader(stream));
-            config.setDefaults(YamlFile);
-        }
+    public ConfigDUtils(JavaPlugin plugin, String pathname, String filename) {
+        this.plugin = plugin;
+        this.path = pathname;
+        this.name = filename;
+        this.filepath = new File(plugin.getDataFolder(), path);
+        this.file = new File(filepath, name);
     }
 
     public FileConfiguration getConfig() {
@@ -48,12 +36,19 @@ public class ConfigDUtils implements Listener {
         return config;
     }
 
-    public ConfigDUtils(JavaPlugin plugin, String pathname, String filename) {
-        this.plugin = plugin;
-        this.path = pathname;
-        this.name = filename;
-        this.filepath = new File(plugin.getDataFolder(), path);
-        this.file = new File(filepath, name);
+    public void saveDefaultConfig() {
+        if (!filepath.exists()) {
+            boolean success = filepath.mkdirs();
+            if (!success)
+                Bukkit.getConsoleSender().sendMessage("There was a problem creating the config..");
+        }
+        if (!file.exists())
+            this.plugin.saveResource(path + name, false);
+    }
+
+    public static void save(ConfigDUtils config) {
+        config.saveConfig();
+        config.reloadConfig();
     }
 
     public void saveConfig() {
@@ -64,9 +59,17 @@ public class ConfigDUtils implements Listener {
         }
     }
 
-    public static void save(ConfigDUtils config) {
-        config.saveConfig();
-        config.reloadConfig();
+    public void reloadConfig() {
+        if (filepath == null)
+            filepath = new File(plugin.getDataFolder(), path);
+        if (file == null)
+            file = new File(filepath, name);
+        config = YamlConfiguration.loadConfiguration(file);
+        InputStream stream = plugin.getResource(name);
+        if (stream != null) {
+            YamlConfiguration YmlFile = YamlConfiguration.loadConfiguration(new InputStreamReader(stream));
+            config.setDefaults(YmlFile);
+        }
     }
 
     public void configOnEnable() {
@@ -74,4 +77,5 @@ public class ConfigDUtils implements Listener {
         Notorious.Config.reloadConfig();
         Notorious.Config.saveConfig();
     }
+
 }

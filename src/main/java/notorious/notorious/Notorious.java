@@ -1,5 +1,7 @@
 package notorious.notorious;
 
+import notorious.notorious.commands.ReloadConfig;
+import notorious.notorious.events.JoinLeaveEvent;
 import notorious.notorious.utils.ColorUtils;
 import notorious.notorious.utils.ConfigDUtils;
 import org.bukkit.Bukkit;
@@ -19,8 +21,15 @@ public final class Notorious extends JavaPlugin {
         Config.configOnEnable();
 
         // plugin starting message
-        Bukkit.getConsoleSender().sendMessage(ColorUtils.changeColorCode
-                (Objects.requireNonNull(Config.getConfig().getString("start-up-message"))));
+        if (!Objects.requireNonNull(Config.getConfig().getString("start-up-message")).isEmpty()) {
+            Bukkit.getConsoleSender().sendMessage(ColorUtils.changeColorCode(Objects.requireNonNull(Config.getConfig().getString("start-up-message"))));
+        }
+
+        // plugin events
+        getServer().getPluginManager().registerEvents(new JoinLeaveEvent(), this);
+
+        // plugin commands
+        Objects.requireNonNull(getCommand("noreload")).setExecutor(new ReloadConfig());
 
     }
 
@@ -28,12 +37,9 @@ public final class Notorious extends JavaPlugin {
     public void onDisable() {
 
         // plugin stopping message
-        Bukkit.getConsoleSender().sendMessage(ColorUtils.changeColorCode
-                (Objects.requireNonNull(Config.getConfig().getString("start-down-message"))));
-
-        // saves config
-        ConfigDUtils.save(Config);
-        Bukkit.getConsoleSender().sendMessage(ColorUtils.changeColorCode("&c[Notorious] Saving configs."));
+        if (!Objects.requireNonNull(Config.getConfig().getString("start-down-message")).isEmpty()) {
+            Bukkit.getConsoleSender().sendMessage(ColorUtils.changeColorCode(Objects.requireNonNull(Config.getConfig().getString("start-down-message"))));
+        }
 
     }
 }

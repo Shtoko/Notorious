@@ -1,3 +1,21 @@
-# change plugin start and stop messages
+# basic server messages
+
+# default settings show regular minecraft messages
+# to hide messages change show-join-quit-message to false
+# for custom messages change join-message and quit-message
+# use %player% to display the joining or quiting players name
+# example: join-message: "Welcome %player% to the server!"
+show-join-quit-message: true
+join-message: ""
+quit-message: ""
+
+
+
+# random server messages
+
+# change plugin start and stop messages - console only
 start-up-message: "&6[Notorious] Plugin is starting."
-start-down-message: "&6[Notorious] Plugin is stopping."
+start-down-message: "&c[Notorious] Plugin is stopping."
+
+# change config reload message
+config-reload-message: "&6[Notorious] &cConfig files reloaded."
