@@ -20,7 +20,7 @@ public final class Notorious extends JavaPlugin {
 
         // plugin starting message
         Bukkit.getConsoleSender().sendMessage(ColorUtils.changeColorCode
-                (Objects.requireNonNull(Config.getConfig().getString("StartUp-Message"))));
+                (Objects.requireNonNull(Config.getConfig().getString("start-up-message"))));
 
     }
 
@@ -29,7 +29,7 @@ public final class Notorious extends JavaPlugin {
 
         // plugin stopping message
         Bukkit.getConsoleSender().sendMessage(ColorUtils.changeColorCode
-                (Objects.requireNonNull(Config.getConfig().getString("StartDown-Message"))));
+                (Objects.requireNonNull(Config.getConfig().getString("start-down-message"))));
 
         // saves config
         ConfigDUtils.save(Config);

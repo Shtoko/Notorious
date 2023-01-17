@@ -1,3 +1,3 @@
-# custom config file
-StartUp-Message: '&6[Notorious] Plugin is starting.'
-StartDown-Message: '&6[Notorious] Plugin is stopping.'
+# change plugin start and stop messages
+start-up-message: "&6[Notorious] Plugin is starting."
+start-down-message: "&6[Notorious] Plugin is stopping."
